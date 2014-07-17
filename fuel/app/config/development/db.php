@@ -10,5 +10,6 @@ return array(
 			'username'   => 'root',
 			'password'   => 'root',
 		),
+		'profiling'    => true,
 	),
 );
