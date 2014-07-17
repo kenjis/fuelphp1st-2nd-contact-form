@@ -23,4 +23,13 @@
 			<directory suffix=".php">../app/modules/*/tests</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../app/classes</directory>
+			<exclude>
+				<directory suffix=".php">../app/classes/presenter</directory>
+				<file>../app/classes/functionaltestcase.php</file>
+			</exclude>
+		</whitelist>
+	</filter>
 </phpunit>
