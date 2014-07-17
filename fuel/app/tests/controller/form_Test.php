@@ -138,4 +138,68 @@ class controller_form_Test extends AmTestCase
 		$expected = '<p>メールアドレスに誤りがあります。</p>';
 		$this->assertEquals($expected, $title);
 	}
+	
+	public function test_sendアクションで検証エラーだとタイトルがエラーになる()
+	{
+		// Security::check_token()を単にtrueを返すモックに置き換え
+		$sec = test::double('Fuel\Core\Security', ['check_token' => true]);
+		// Validation::run()を単にfalseを返すモックに置き換え
+		$val = test::double('Fuel\Core\Validation', ['run' => false]);
+		
+		// HMVCリクエストを実行
+		$response = Request::forge('form/send')->execute()->response();
+		
+		// titleのテスト
+		$title = $response->body->title;
+		$expected = 'コンタクトフォーム: エラー';
+		$this->assertEquals($expected, $title);
+	}
+	
+	public function test_sendアクションで保存に失敗するとタイトルがサーバエラーになる()
+	{
+		// Security::check_token()を単にtrueを返すモックに置き換え
+		$sec = test::double('Fuel\Core\Security', ['check_token' => true]);
+		// Validation::run()を単にtrueを返すモックに置き換え
+		$val = test::double('Fuel\Core\Validation', ['run' => true]);
+		// Model_Form::save()を単にfalseを返すモックに置き換え
+		$model_form = test::double('Model_Form', ['save' => false]);
+		
+		// HMVCリクエストを実行
+		$response = Request::forge('form/send')->execute()->response();
+		
+		// titleのテスト
+		$title = $response->body->title;
+		$expected = 'コンタクトフォーム: サーバエラー';
+		$this->assertEquals($expected, $title);
+	}
+	
+	public function test_sendアクションでEmailSendingFailedExceptionが発生するとタイトルが送信エラーになる()
+	{
+		Package::load('email');
+		
+		// Security::check_token()を単にtrueを返すモックに置き換え
+		$sec = test::double('Fuel\Core\Security', ['check_token' => true]);
+		// Validation::run()を単にtrueを返すモックに置き換え
+		$val = test::double('Fuel\Core\Validation', ['run' => true]);
+		// Model_Form::save()を単にtrueを返すモックに置き換え
+		$model_form = test::double('Model_Form', ['save' => true]);
+		// Model_Mail::send()を例外を投げるモックに置き換え
+		$model_mail = test::double(
+			'Model_Mail',
+			['send' => function() { throw new EmailSendingFailedException; }]
+		);
+		
+		// HMVCリクエストを実行
+		$response = Request::forge('form/send')->execute()->response();
+		
+		// titleのテスト
+		$title = $response->body->title;
+		$expected = 'コンタクトフォーム: 送信エラー';
+		$this->assertEquals($expected, $title);
+		
+		// html_errorのテスト
+		$title = $response->body->content->html_error;
+		$expected = '<p>メールを送信できませんでした。</p>';
+		$this->assertEquals($expected, $title);
+	}
 }
