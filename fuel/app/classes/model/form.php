@@ -1,11 +1,38 @@
 <?php
-
-class Model_Form extends Model_Crud
+class Model_Form extends \Orm\Model
 {
-	// 使用するテーブル名
-	protected static $_table_name = 'form';
-	// 作成日時
-	protected static $_created_at = 'created_at';
-	// 更新日時
-	protected static $_updated_at = 'updated_at';
+	protected static $_properties = array(
+		'id',
+		'name',
+		'email',
+		'comment',
+		'ip_address',
+		'user_agent',
+		'created_at',
+		'updated_at',
+	);
+
+	protected static $_observers = array(
+		'Orm\Observer_CreatedAt' => array(
+			'events' => array('before_insert'),
+			'mysql_timestamp' => false,
+		),
+		'Orm\Observer_UpdatedAt' => array(
+			'events' => array('before_save'),
+			'mysql_timestamp' => false,
+		),
+	);
+
+	public static function validate($factory)
+	{
+		$val = Validation::forge($factory);
+		$val->add_field('name', 'Name', 'required|max_length[50]');
+		$val->add_field('email', 'Email', 'required|valid_email|max_length[100]');
+		$val->add_field('comment', 'Comment', 'required|max_length[400]');
+		$val->add_field('ip_address', 'Ip Address', 'required|max_length[39]');
+		$val->add_field('user_agent', 'User Agent', 'required|max_length[512]');
+
+		return $val;
+	}
+
 }
