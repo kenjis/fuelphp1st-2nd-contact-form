@@ -1,39 +1,102 @@
-#FuelPHP
+# 『はじめてのフレームワークとしてのFuelPHP 第2版』のコンタクトフォーム
 
-* Version: 1.7.2
-* [Website](http://fuelphp.com/)
-* [Release Documentation](http://docs.fuelphp.com)
-* [Release API browser](http://api.fuelphp.com)
-* [Development branch Documentation](http://dev-docs.fuelphp.com)
-* [Development branch API browser](http://dev-api.fuelphp.com)
-* [Support Forum](http://fuelphp.com/forums) for comments, discussion and community support
+達人出版会から刊行されている『[はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)』で作成する「コンタクトフォーム」です。
 
-## Description
+FuelPHP 1.7.2で『[はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)』の手順どおりに作成したものです。
 
-FuelPHP is a fast, lightweight PHP 5.3 framework. In an age where frameworks are a dime a dozen, We believe that FuelPHP will stand out in the crowd.  It will do this by combining all the things you love about the great frameworks out there, while getting rid of the bad.
+ソースコードは、『[はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)』で解説されています。
 
-## More information
+テストカバー率は、現在、行レベルで48.43%です。
 
-For more detailed information, see the [development wiki](https://github.com/fuelphp/fuelphp/wiki).
+このコンタクトフォームは学習用で一部未完成です。
 
-##Development Team
+## 動作環境
 
-* Harro Verton - Project Manager, Developer ([http://wanwizard.eu/](http://wanwizard.eu/))
-* Frank de Jonge - Developer ([http://frenky.net/](http://frenky.net/))
-* Steve West - Developer
+* PHP 5.4以上
+* Apache
+* MySQL
 
-### Want to join?
+## インストール方法
 
-The FuelPHP development team is always looking for new team members, who are willing
-to help lift the framework to the next level, and have the commitment to not only
-produce awesome code, but also great documentation, and support to our users.
+### ソースコードのインストール
 
-You can not apply for membership. Start by sending in pull-requests, work on outstanding
-feature requests or bugs, and become active in the #fuelphp IRC channel. If your skills
-are up to scratch, we will notice you, and will ask you to become a team member.
+~~~
+$ git clone https://github.com/kenjis/fuelphp1st-2nd-contact-form.git
+$ cd fuelphp1st-2nd-contact-form
+$ php composer.phar self-update
+$ php composer.phar install
+~~~
 
-### Alumni
+### データベースの作成
 
-* Jelmer Schreuder - Developer ([http://jelmerschreuder.nl/](http://jelmerschreuder.nl/))
-* Phil Sturgeon - Developer ([http://philsturgeon.co.uk](http://philsturgeon.co.uk))
-* Dan Horrigan - Founder, Developer ([http://dhorrigan.com](http://dhorrigan.com))
+MySQLにデータベースを作成します。
+
+~~~
+> CREATE DATABASE `fuel_dev` DEFAULT CHARACTER SET utf8;
+> CREATE DATABASE `fuel_test` DEFAULT CHARACTER SET utf8;
+> GRANT ALL PRIVILEGES ON fuel_dev.* TO username@localhost IDENTIFIED BY 'password';
+> GRANT ALL PRIVILEGES ON fuel_test.* TO username@localhost;
+~~~
+
+### テーブルの作成
+
+マイグレーションで必要なテーブルを作成します。
+
+~~~
+$ oil refine migrate:current
+$ FUEL_ENV=test oil refine migrate:current
+$ oil refine migrate:current --packages=auth
+$ FUEL_ENV=test oil refine migrate:current --packages=auth
+~~~
+
+### Apacheの設定
+
+http://localhost/fuelphp/form でアクセスできるように設定します。
+
+~~~
+$ cd /path/to/htdocs/
+$ ln -s /path/to/fuelphp1st-2nd-contact-form/public/ fuelphp
+~~~
+
+### 管理者アカウントの作成
+
+~~~
+$ oil console
+Fuel 1.7.2 - PHP 5.5.10 (cli) (Apr 10 2014 17:49:03) [Darwin]
+>>> Auth::create_user('admin', 'password', 'admin@example.jp', 100);
+1
+>>> exit
+~~~
+
+http://localhost/fuelphp/admin から以下の管理者アカウントでログインできます。
+
+~~~
+　ユーザ名：admin
+パスワード：password
+~~~
+
+## テストの実行
+
+### ユニットテスト
+
+~~~
+$ oil test --group=App
+$ oil test --group=App --coverage-html=coverage
+~~~
+
+### ファンクショナルテスト
+
+~~~
+$ oil test --group=Functional
+~~~
+
+## ライセンス
+
+MITライセンスです。LICENSE.mdを参照してください。
+
+## 関連
+
+* [はじめてのフレームワークとしてのFuelPHP 第2版（1）環境構築編](http://tatsu-zine.com/books/fuelphp1st-2nd-1)
+* [はじめてのフレームワークとしてのFuelPHP 第2版（2）入門編](http://tatsu-zine.com/books/fuelphp1st-2nd-2)
+* [はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)
+* [サポートサイト](https://github.com/kenjis/fuelphp1st-2nd)
