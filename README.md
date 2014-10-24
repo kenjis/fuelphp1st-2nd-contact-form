@@ -1,10 +1,10 @@
-# 『はじめてのフレームワークとしてのFuelPHP 第2版』のコンタクトフォーム
+# 『はじめてのフレームワークとしてのFuelPHP 第2版(改訂版)』のコンタクトフォーム
 
-達人出版会から刊行されている『[はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)』で作成する「コンタクトフォーム」です。
+達人出版会およびラトルズ刊行の『はじめてのフレームワークとしてのFuelPHP 第2版(改訂版)』で作成する「コンタクトフォーム」です。
 
-FuelPHP 1.7.2で『[はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)』の手順どおりに作成したものです。
+書籍の詳細は、[『はじめてのフレームワークとしての FuelPHP 第2版(改訂版)』サポートサイト](https://github.com/kenjis/fuelphp1st-2nd)を参照願います。
 
-ソースコードは、『[はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)』で解説されています。
+FuelPHP 1.7.2で書籍の手順どおりに作成したものです。ソースコードは、書籍で解説されています。
 
 テストカバー率は、現在、行レベルで48.43%です。
 
@@ -96,7 +96,4 @@ MITライセンスです。LICENSE.mdを参照してください。
 
 ## 関連
 
-* [はじめてのフレームワークとしてのFuelPHP 第2版（1）環境構築編](http://tatsu-zine.com/books/fuelphp1st-2nd-1)
-* [はじめてのフレームワークとしてのFuelPHP 第2版（2）入門編](http://tatsu-zine.com/books/fuelphp1st-2nd-2)
-* [はじめてのフレームワークとしてのFuelPHP 第2版（3）実践編](http://tatsu-zine.com/books/fuelphp1st-2nd-3)
-* [サポートサイト](https://github.com/kenjis/fuelphp1st-2nd)
+* [『はじめてのフレームワークとしての FuelPHP 第2版(改訂版)』サポートサイト](https://github.com/kenjis/fuelphp1st-2nd)
