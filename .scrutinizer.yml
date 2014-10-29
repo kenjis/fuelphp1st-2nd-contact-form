@@ -1,0 +1,7 @@
+imports:
+  - php
+
+filter:
+  paths:
+    - fuel/app/classes/*
+    - fuel/app/tasks/*
