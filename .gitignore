@@ -31,3 +31,8 @@ desktop.ini
 /fuel/app/logs/*/*/*
 /fuel/app/cache/*/*
 /fuel/app/config/crypt.php
+
+# for my project
+fuel/app/tmp/
+public/.htaccess_develop
+vagrant-centos6-php/
