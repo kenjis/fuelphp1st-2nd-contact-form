@@ -1,0 +1,19 @@
+<phpdox xmlns="http://phpdox.net/config">
+ <project name="FuelPHP Project" source="fuel/app" workdir="build/phpdox">
+  <collector publiconly="false">
+   <include mask="*.php" />
+   <exclude mask="**AspectMock**"/>
+  </collector>
+
+  <generator output="build">
+   <enrich base="${basedir}/build">
+    <source type="phploc">
+     <file name="logs/phploc.xml" />
+    </source>
+   </enrich>
+   <build engine="html" enabled="true" output="api">
+    <file extension="html" />
+   </build>
+  </generator>
+ </project>
+</phpdox>
