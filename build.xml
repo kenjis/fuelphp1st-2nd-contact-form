@@ -98,6 +98,7 @@
    <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
    <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
    <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+   <arg value="--ignore=tmp/,cache/,logs/" />
    <arg path="${basedir}/fuel/app" />
   </exec>
  </target>
